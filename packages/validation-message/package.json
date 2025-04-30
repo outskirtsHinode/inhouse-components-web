@@ -1,0 +1,17 @@
+{
+  "name": "@inhouse/validation-message",
+  "version": "0.0.1",
+  "description": "Inhouse validation message component",
+  "main": "_index.scss",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "inhouse",
+    "validation",
+    "message",
+    "component"
+  ],
+  "author": "Inhouse",
+  "license": "UNLICENSED"
+}

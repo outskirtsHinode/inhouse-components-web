@@ -44,6 +44,7 @@
     "@pepabo-inhouse/textfield": "^3.3.1",
     "@pepabo-inhouse/thumbnail": "^3.3.1",
     "@pepabo-inhouse/tokens": "^2.4.0",
+    "@pepabo-inhouse/validation-message": "^3.3.1",
     "@storybook/addon-essentials": "^7.0.6",
     "@storybook/react": "^7.0.6",
     "@storybook/react-webpack5": "^7.0.6",

@@ -1,0 +1,29 @@
+@mixin validation-message-base {
+  margin-top: $validation-message-margin-top;
+  font-size: $validation-message-font-size;
+  line-height: $validation-message-line-height;
+}
+
+@mixin validation-message-error {
+  @include validation-message-base;
+
+  color: $validation-message-color-error;
+}
+
+@mixin validation-message-warning {
+  @include validation-message-base;
+
+  color: $validation-message-color-warning;
+}
+
+@mixin validation-message-info {
+  @include validation-message-base;
+
+  color: $validation-message-color-info;
+}
+
+@mixin validation-message-success {
+  @include validation-message-base;
+
+  color: $validation-message-color-success;
+}
