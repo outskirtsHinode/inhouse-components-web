@@ -1,8 +1,8 @@
-import React, { FC, ReactNode } from 'react'
+import React, { FC } from 'react'
 import { SemanticColor } from './types';
 
 export interface Props {
-  children: ReactNode;
+  children: string;
   color?: Extract<SemanticColor, "negative" | "neutral">;
 }
 
