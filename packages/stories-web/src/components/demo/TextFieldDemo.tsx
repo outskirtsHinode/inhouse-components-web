@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import TextField, { Props as TextFieldProps } from '../TextField';
+import '@pepabo-inhouse/validation-message';
 
 export type Props = Pick<
   TextFieldProps,
@@ -19,6 +20,16 @@ const TextFieldDemo: FC<Props> = (props) => (
       <TextField {...props} tag="textarea" state="hover" />
       <TextField {...props} tag="textarea" state="focused" />
       <TextField {...props} tag="textarea" state="disabled" disabled />
+    </div>
+    <div>
+      <TextField
+        {...props}
+        validationMessage={
+          <div className="inhouse-validation-message inhouse-validation-message--error">
+            エラーメッセージが表示されます
+          </div>
+        }
+      />
     </div>
   </>
 );

@@ -1,29 +1,25 @@
-@mixin validation-message-base {
-  margin-top: $validation-message-margin-top;
-  font-size: $validation-message-font-size;
-  line-height: $validation-message-line-height;
+@use "sass:map";
+@use "sass:list";
+@use "@pepabo-inhouse/adapter" as adapter;
+@use "./variables";
+
+@mixin style($options: variables.$default-option) {
+  @include adapter.text(
+    $level: s,
+    $density: normal
+  );
+
+  &.-color-negative {
+    color:
+      adapter.get-semantic-color(
+        $intention: map.get($options, color),
+        $level: 600
+      );
+  }
 }
 
-@mixin validation-message-error {
-  @include validation-message-base;
-
-  color: $validation-message-color-error;
-}
-
-@mixin validation-message-warning {
-  @include validation-message-base;
-
-  color: $validation-message-color-warning;
-}
-
-@mixin validation-message-info {
-  @include validation-message-base;
-
-  color: $validation-message-color-info;
-}
-
-@mixin validation-message-success {
-  @include validation-message-base;
-
-  color: $validation-message-color-success;
+@mixin export {
+  .in-validation-message {
+    @include style;
+  }
 }

@@ -1,5 +1,6 @@
-import React, { FC, InputHTMLAttributes, TextareaHTMLAttributes } from 'react';
+import React, { FC, InputHTMLAttributes, TextareaHTMLAttributes, ReactNode } from 'react';
 import { Appearance, SemanticColor, Size, State, Width } from './types';
+import ValidationMessage from './ValidationMessage';
 
 type HTMLProps = InputHTMLAttributes<HTMLInputElement> &
   TextareaHTMLAttributes<HTMLInputElement>;
@@ -12,6 +13,7 @@ export interface Props extends Omit<HTMLProps, 'size'> {
   state?: Extract<State, 'enabled' | 'hover' | 'focused' | 'disabled'>;
   tag?: 'input' | 'textarea';
   width?: Width;
+  validationMessage?: ReactNode;
 }
 
 const TextField: FC<Props> = (props: Props) => {
@@ -24,6 +26,7 @@ const TextField: FC<Props> = (props: Props) => {
     tag = 'input',
     value,
     width,
+    validationMessage,
     ...rest
   } = props;
 
@@ -50,28 +53,31 @@ const TextField: FC<Props> = (props: Props) => {
     wrapperClasses.push(`-width-${width}`);
   }
 
-  if (tag === 'input') {
-    return (
-      <div className={wrapperClasses.join(' ')}>
-        <input
-          className={innerClasses.join(' ')}
-          size={htmlSize}
-          type="text"
-          value={value}
-          {...(rest as InputHTMLAttributes<HTMLInputElement>)}
-        />
-      </div>
-    );
-  }
+  const inputElement = tag === 'input' ? (
+    <input
+      className={innerClasses.join(' ')}
+      size={htmlSize}
+      type="text"
+      value={value}
+      {...(rest as InputHTMLAttributes<HTMLInputElement>)}
+    />
+  ) : (
+    <textarea
+      className={innerClasses.join(' ')}
+      {...(rest as TextareaHTMLAttributes<HTMLTextAreaElement>)}
+    >
+      {value}
+    </textarea>
+  );
 
   return (
     <div className={wrapperClasses.join(' ')}>
-      <textarea
-        className={innerClasses.join(' ')}
-        {...(rest as TextareaHTMLAttributes<HTMLTextAreaElement>)}
-      >
-        {value}
-      </textarea>
+      {inputElement}
+      {validationMessage && (
+        <ValidationMessage color="negative">
+          {validationMessage}
+        </ValidationMessage>
+      )}
     </div>
   );
 };
