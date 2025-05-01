@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import TextField, { Props as TextFieldProps } from '../TextField';
-import '@pepabo-inhouse/validation-message';
 
 export type Props = Pick<
   TextFieldProps,
@@ -25,8 +24,8 @@ const TextFieldDemo: FC<Props> = (props) => (
       <TextField
         {...props}
         validationMessage={
-          <div className="inhouse-validation-message inhouse-validation-message--error">
-            エラーメッセージが表示されます
+          <div className={`in-validation-message -color-${props.color}`}>
+            必須項目です
           </div>
         }
       />

@@ -1,6 +1,5 @@
 import React, { FC, InputHTMLAttributes, TextareaHTMLAttributes, ReactNode } from 'react';
 import { Appearance, SemanticColor, Size, State, Width } from './types';
-import ValidationMessage from './ValidationMessage';
 
 type HTMLProps = InputHTMLAttributes<HTMLInputElement> &
   TextareaHTMLAttributes<HTMLInputElement>;
@@ -74,9 +73,7 @@ const TextField: FC<Props> = (props: Props) => {
     <div className={wrapperClasses.join(' ')}>
       {inputElement}
       {validationMessage && (
-        <ValidationMessage color="negative">
-          {validationMessage}
-        </ValidationMessage>
+        <>{validationMessage}</>
       )}
     </div>
   );

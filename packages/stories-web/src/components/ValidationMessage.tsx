@@ -3,7 +3,7 @@ import { SemanticColor } from './types';
 
 export interface Props {
   children: ReactNode;
-  color?: Extract<SemanticColor, "negative">;
+  color?: Extract<SemanticColor, "negative" | "neutral">;
 }
 
 const ValidationMessage: FC<Props> = (props: Props) => {
@@ -16,9 +16,9 @@ const ValidationMessage: FC<Props> = (props: Props) => {
   wrapperClasses.push(`-color-${color}`)
 
   return (
-    <div className={wrapperClasses.join(' ')}>
+    <span className={wrapperClasses.join(' ')}>
       {children}
-    </div>
+    </span>
   )
 }
 
