@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import TextField, { Props as TextFieldProps } from '../TextField';
-import ValidationMessage from '../ValidationMessage';
 
 export type Props = Pick<
   TextFieldProps,
@@ -24,11 +23,8 @@ const TextFieldDemo: FC<Props> = (props) => (
     <div>
       <TextField
         {...props}
-        validationMessage={
-          <ValidationMessage color={props.color}>
-            必須項目です
-          </ValidationMessage>
-        }
+        isRequired
+        label="名前"
       />
     </div>
   </>

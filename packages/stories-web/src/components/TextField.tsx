@@ -1,5 +1,11 @@
 import React, { FC, InputHTMLAttributes, TextareaHTMLAttributes, ReactNode } from 'react';
 import { Appearance, SemanticColor, Size, State, Width } from './types';
+import {
+  TextField as AriaTextField,
+  Input as AriaInput,
+  TextArea as AriaTextArea,
+  FieldError as AriaFieldError
+} from 'react-aria-components';
 
 type HTMLProps = InputHTMLAttributes<HTMLInputElement> &
   TextareaHTMLAttributes<HTMLInputElement>;
@@ -12,7 +18,7 @@ export interface Props extends Omit<HTMLProps, 'size'> {
   state?: Extract<State, 'enabled' | 'hover' | 'focused' | 'disabled'>;
   tag?: 'input' | 'textarea';
   width?: Width;
-  validationMessage?: ReactNode;
+  isRequired?: boolean;
 }
 
 const TextField: FC<Props> = (props: Props) => {
@@ -25,7 +31,7 @@ const TextField: FC<Props> = (props: Props) => {
     tag = 'input',
     value,
     width,
-    validationMessage,
+    isRequired,
     ...rest
   } = props;
 
@@ -52,29 +58,34 @@ const TextField: FC<Props> = (props: Props) => {
     wrapperClasses.push(`-width-${width}`);
   }
 
-  const inputElement = tag === 'input' ? (
-    <input
-      className={innerClasses.join(' ')}
-      size={htmlSize}
-      type="text"
-      value={value}
-      {...(rest as InputHTMLAttributes<HTMLInputElement>)}
-    />
-  ) : (
-    <textarea
-      className={innerClasses.join(' ')}
-      {...(rest as TextareaHTMLAttributes<HTMLTextAreaElement>)}
-    >
-      {value}
-    </textarea>
-  );
-
   return (
     <div className={wrapperClasses.join(' ')}>
-      {inputElement}
-      {validationMessage && (
-        <>{validationMessage}</>
-      )}
+      <AriaTextField
+        value={value?.toString()}
+        isDisabled={state === 'disabled'}
+        isRequired={isRequired}
+      >
+        {tag === 'input' ? (
+          <AriaInput
+            className={innerClasses.join(' ')}
+            size={htmlSize}
+            type="text"
+            {...(rest as InputHTMLAttributes<HTMLInputElement>)}
+          />
+        ) : (
+          <AriaTextArea
+            className={innerClasses.join(' ')}
+            {...(rest as TextareaHTMLAttributes<HTMLTextAreaElement>)}
+          />
+        )}
+        <AriaFieldError className="in-validation-message -color-negative">
+          {({ validationDetails }) =>
+            validationDetails.valueMissing
+              ? '必須項目です'
+              : ''
+          }
+        </AriaFieldError>
+      </AriaTextField>
     </div>
   );
 };
